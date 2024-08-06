@@ -4,8 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+      </style>
 </head>
 <body>
-    Hello <%= locals.text || 'default' %>
+    <h1>Users List</h1>
+    <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Description</th>
+            <th>Car Immat</th>
+            <th>Car Type</th>
+            <th>Status</th>
+            <th>Payment Way</th>
+            <th>Role Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.fullname %></td>
+              <td><%= user.email %></td>
+              <td><%= user.phone %></td>
+              <td><%= user.description %></td>
+              <td><%= user.car_immat %></td>
+              <td><%= user.car_type %></td>
+              <td><%= user.status %></td>
+              <td><%= user.payement_way %></td>
+              <td><%= user.role_name %></td>
+              <td class="action-buttons">
+                <a href="/edit/<%= user.id %>">Edit</a>
+                <a href="/delete/<%= user.id %>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
 </body>
 </html>

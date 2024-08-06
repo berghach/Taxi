@@ -1,18 +1,7 @@
 const express = require('express')
-const mysql = require('mysql2');
-require('dotenv').config();
 const app = express()
 
-const port = process.env.PORT || 3000;
-
-// Create MySQL connection
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-
+const connection = require('./connection/database')
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to the database:', err);
@@ -24,12 +13,14 @@ connection.connect((err) => {
 app.set('view engine', 'ejs')
 
 app.get('/', (raq, res) => {
-    console.log('here')
-    res.render('index', { text: 'World'})
+  res.render('index')
 })
 
 const userRouter = require('./routes/users')
 
 app.use('/users', userRouter)
 
-app.listen(port)
+const port = 3000
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
