@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
           INNER JOIN roles ON users.role_id = roles.id 
           WHERE role_name = 'driver'
         `);
-        res.render('index', { users: results });
+        res.render('users.index', { users: results});
       } catch (error) {
         console.error('Error executing query:', error);
         res.status(500).send('Server error');
